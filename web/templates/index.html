@@ -26,16 +26,32 @@
 			{% endfor %}
 		</select>
 	</div>
-	<input type="submit" class="btn btn-primary" value="Submit">
+	<input type="submit" class="btn btn-primary" value="Add">
 </form>
 
 <br>
 <hr>
 
-<div>
-	{% for device in inventory %}
-	<h4 class="well"><strong>{{device.name}}</strong> - {{device.address}} - {{device.device_type_id}} - <em>{{device.date_added.strftime('%Y-%m-%d')}}</em></h4>
-	{% endfor %}
-</div>
+<table class="table table-striped">
+<!-- <caption>Device List</caption> -->
+    <thead>
+        <tr>
+            <th>Device Name</th>
+            <th>Device Address</th>
+            <th>Device Type</th>
+            <th>Date Added</th>
+        </tr>
+    </thead>
+    <tbody>
+		{% for device in inventory %}
+        <tr>
+            <th scope="row">{{device.name}}</th>
+            <td>{{device.address}}</td>
+            <td>{{device.device_type.device_type}}</td>
+            <td>{{device.date_added.strftime('%Y-%m-%d')}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

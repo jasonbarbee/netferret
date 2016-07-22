@@ -1,4 +1,4 @@
 ---
-- ios_snmp
-- ios_xe_snmp
-- nx_os_snmp
+- IOS
+- IOS_XE
+- NX_OS

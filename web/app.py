@@ -1,8 +1,7 @@
 # app.py
 
-
 from flask import Flask
-from flask import request, render_template
+from flask import request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from config import BaseConfig
 
@@ -22,12 +21,12 @@ def index():
         device_name = request.form['device_name']
         device_address = request.form['device_address']
         device_type_id = get_device_type_id_by_name(DeviceTypes, request.form['device_type'])
-        print(device_type_id)
         device = Inventory(device_name, device_address, device_type_id)
         db.session.add(device)
         db.session.commit()
+        return redirect(url_for('index')) # redirect to prevent POSTDATA error on refresh
 
-    devices = Inventory.query.order_by(Inventory.date_added.desc()).all()
+    devices = Inventory.query.order_by(Inventory.name).all()
     device_types = DeviceTypes.query.order_by(DeviceTypes.device_type.desc()).all()
     return render_template('index.html', inventory=devices, device_types=device_types)
 

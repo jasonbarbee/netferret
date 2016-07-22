@@ -11,6 +11,7 @@ class Inventory(db.Model):
     name = db.Column(db.String, unique=True)
     address = db.Column(db.String,unique=True)
     device_type_id = db.Column(db.Integer, db.ForeignKey('device_types.id'))
+    device_type = db.relationship('DeviceTypes', backref=db.backref('inventory', lazy='dynamic'))
     date_added = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, name, address, device_type_id):

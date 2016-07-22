@@ -23,7 +23,7 @@ web:
     - db
   volumes:
     - /usr/src/app/static
-  env_file: .env
+  env_file: .env_docker
   command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
 
 nginx:
