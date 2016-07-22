@@ -1,0 +1,39 @@
+db_data:
+  image: postgres:latest
+  volumes:
+    - /var/lib/postgresql
+  command: "true"
+
+db:
+  restart: always
+  image: postgres:latest
+  volumes_from:
+    - db_data
+  ports:
+    - "15432:5432"
+  environment:
+    - POSTGRES_DB=netferret
+
+web:
+  restart: always
+  build: ./web
+  expose:
+    - "8000"
+  links:
+    - db
+  volumes:
+    - /usr/src/app/static
+  env_file: .env
+  command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "7080:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - web
+  links:
+    - web:web

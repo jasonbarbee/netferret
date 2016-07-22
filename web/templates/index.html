@@ -1,0 +1,41 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="text-center">
+	<h1>NetFerret Device List</h1>
+</div>
+
+<br>
+
+<form action="/" method="POST">
+	<div class="form-group">
+		<label for="device_name">Device name</label>
+		<input name="device_name" class="form-control" type="text" placeholder="Name" required>
+	</div>
+	<div class="form-group">
+		<label for="device_address">Device Hostname/IP</label>
+		<input name="device_address" class="form-control" type="text" placeholder="Host" required>
+	</div>
+	<div class="form-group">
+		<label for="device_address">Device Type</label>
+		<select name="device_type" class="form-control" required>
+		<option disabled selected value> -- select an option -- </option>
+			{% for type in device_types %}
+			<option>{{type.device_type}}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+<br>
+<hr>
+
+<div>
+	{% for device in inventory %}
+	<h4 class="well"><strong>{{device.name}}</strong> - {{device.address}} - {{device.device_type_id}} - <em>{{device.date_added.strftime('%Y-%m-%d')}}</em></h4>
+	{% endfor %}
+</div>
+
+{% endblock %}
