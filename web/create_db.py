@@ -16,9 +16,13 @@ def add_if_new(session, model, **kwargs):
 		session.commit()
 
 # Open the yaml file containing the default device types
-with open('device_types.yml') as file:
-	device_type_list = load(file, Loader=Loader)
+with open('data_defaults.yaml') as file:
+	data_defaults = load(file, Loader=Loader)
 
 # Add device types to the database
-for device_type in device_type_list:
-	add_if_new(db.session, DeviceTypes, device_type=device_type)
+for item in data_defaults['device_types']:
+	add_if_new(db.session, DeviceTypes, device_type=item)
+
+# Add connection methods to the database
+for item in data_defaults['connect_methods']:
+	add_if_new(db.session, ConnectMethods, connect_method=item)

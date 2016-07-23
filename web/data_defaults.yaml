@@ -1,0 +1,10 @@
+---
+device_types:
+  - IOS
+  - IOS_XE
+  - NX_OS
+
+connect_methods:
+  - SNMP
+  # - SSH
+  # - NX-API

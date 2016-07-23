@@ -18,14 +18,24 @@
 		<input name="device_address" class="form-control" type="text" placeholder="Host" required>
 	</div>
 	<div class="form-group">
-		<label for="device_address">Device Type</label>
+		<label for="device_type">Device Type</label>
 		<select name="device_type" class="form-control" required>
 		<option disabled selected value> -- select an option -- </option>
-			{% for type in device_types %}
-			<option>{{type.device_type}}</option>
-			{% endfor %}
+		{% for type in device_types %}
+		<option>{{type.device_type}}</option>
+		{% endfor %}
 		</select>
 	</div>
+
+	<div class="form-group">
+		<label for="connect_method">Connect Method</label>
+		<select name="connect_method" class="form-control" required>
+		{% for item in connect_methods %}
+		<option>{{item.connect_method}}</option>
+		{% endfor %}
+		</select>
+	</div>
+
 	<input type="submit" class="btn btn-primary" value="Add">
 </form>
 
@@ -39,6 +49,7 @@
             <th>Device Name</th>
             <th>Device Address</th>
             <th>Device Type</th>
+            <th>Connect Method</th>
             <th>Date Added</th>
         </tr>
     </thead>
@@ -48,6 +59,7 @@
             <th scope="row">{{device.name}}</th>
             <td>{{device.address}}</td>
             <td>{{device.device_type.device_type}}</td>
+            <td>{{device.connect_method.connect_method}}</td>
             <td>{{device.date_added.strftime('%Y-%m-%d')}}</td>
         </tr>
         {% endfor %}
